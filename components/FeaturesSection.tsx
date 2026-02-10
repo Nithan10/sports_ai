@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Activity, Eye, Trophy, Zap, Globe, Brain, Cpu, Sparkles, ChevronRight, Target, Shield, Crosshair, BarChart2 } from "lucide-react";
+import { Activity, Eye, Trophy, Zap, Crosshair, BarChart2, ChevronRight, Brain } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -283,9 +283,9 @@ const ConnectionLines = () => {
                     {/* Static Line - Lighter and crisper */}
                     <path d={line.d} fill="none" stroke="#cbd5e1" strokeWidth="1.5" />
                     
-                    {/* Moving Packet */}
+                    {/* Moving Packet - FIXED: Removed 'motion.' prefix */}
                     <motion.circle r="4" fill={line.color} filter="url(#glow-light)">
-                        <motion.animateMotion 
+                        <animateMotion 
                             repeatCount="indefinite"
                             dur="3s"
                             path={line.d}
@@ -293,7 +293,7 @@ const ConnectionLines = () => {
                             keyTimes="0;1"
                             calcMode="spline"
                             keySplines="0.4 0 0.2 1"
-                            begin={line.delay}
+                            begin={`${line.delay}s`}
                         />
                     </motion.circle>
                 </g>

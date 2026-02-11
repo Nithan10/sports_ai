@@ -82,14 +82,14 @@ const HealthVisual = () => (
   <div className="relative w-full h-full flex items-center justify-center">
     <Activity className="w-8 h-8 text-rose-500" />
     <svg className="absolute inset-0 w-full h-full pointer-events-none">
-       <circle cx="50%" cy="50%" r="28" stroke="#cbd5e1" strokeWidth="1" fill="none" />
-       <motion.circle 
+        <circle cx="50%" cy="50%" r="28" stroke="#cbd5e1" strokeWidth="1" fill="none" />
+        <motion.circle 
           cx="50%" cy="50%" r="28" 
           stroke="#f43f5e" strokeWidth="2" fill="none" 
           strokeDasharray="175" strokeDashoffset="175"
           animate={{ strokeDashoffset: [175, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-       />
+        />
     </svg>
   </div>
 );
@@ -133,25 +133,27 @@ const FeatureCard = ({ title, description, visual, color, delay, side, stats }: 
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.5 }}
-      className="relative group"
+      className="relative group w-full"
     >
       <div className={cn(
         "flex items-center gap-5 p-5 rounded-2xl bg-white/80 backdrop-blur-xl border border-slate-200",
         "transition-all duration-300 hover:bg-white hover:border-slate-300",
         "shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)]",
-        // Mirror layout: Left cards have visual on right, Right cards have visual on left
-        isLeft ? "flex-row-reverse text-right" : "flex-row text-left"
+        // Mobile: Always left aligned text, visual on right
+        // Desktop: Mirrored (Left cards have visual on right, Right cards on left)
+        "flex-row text-left lg:flex-row",
+        isLeft ? "lg:flex-row-reverse lg:text-right" : "lg:flex-row lg:text-left"
       )}>
         
         {/* Content Section */}
         <div className="flex-1 min-w-0">
-          <div className={cn("flex items-center gap-2 mb-1", isLeft && "justify-end")}>
-            <h3 className="text-lg font-bold text-slate-800 tracking-tight">{title}</h3>
+          <div className={cn("flex items-center gap-2 mb-1", isLeft && "lg:justify-end")}>
+            <h3 className="text-base md:text-lg font-bold text-slate-800 tracking-tight">{title}</h3>
             {/* HUD Status Dot */}
             <div className={cn("w-2 h-2 rounded-full", theme.split(" ")[2].replace("text", "bg"))} />
           </div>
           
-          <p className="text-sm text-slate-500 font-medium leading-relaxed">{description}</p>
+          <p className="text-xs md:text-sm text-slate-500 font-medium leading-relaxed">{description}</p>
           
           {/* Tech Stats */}
           <div className={cn(
@@ -163,26 +165,22 @@ const FeatureCard = ({ title, description, visual, color, delay, side, stats }: 
           </div>
         </div>
 
-        {/* Visual Container (Closer to Core) */}
+        {/* Visual Container */}
         <div className={cn(
-          "relative shrink-0 w-16 h-16 rounded-xl bg-white border p-2 overflow-hidden shadow-sm",
+          "relative shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-xl bg-white border p-2 overflow-hidden shadow-sm",
           "group-hover:shadow-md transition-all duration-300",
           theme.split(" ")[0] // Border color
         )}>
           {visual}
         </div>
 
-        {/* Connection Anchor Point */}
+        {/* Connection Anchor Point (Hidden on Mobile) */}
         <div className={cn(
-          "absolute top-1/2 w-2.5 h-2.5 rounded-full bg-white border-[3px] border-slate-300 z-20 shadow-sm",
+          "hidden lg:block absolute top-1/2 w-2.5 h-2.5 rounded-full bg-white border-[3px] border-slate-300 z-20 shadow-sm",
           isLeft ? "-right-1.5" : "-left-1.5"
         )} />
 
       </div>
-
-      {/* Decorative Corner Markers (Technical Look) */}
-      <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" />
     </motion.div>
   );
 };
@@ -196,7 +194,7 @@ const QuantumCore = () => {
         <div className="relative w-full h-full flex flex-col items-center justify-center">
             
             {/* Reactor Housing */}
-            <div className="relative w-72 h-72 flex items-center justify-center">
+            <div className="relative w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 flex items-center justify-center">
                 
                 {/* Outer Rotating Shield */}
                 <motion.div 
@@ -207,22 +205,22 @@ const QuantumCore = () => {
                 
                 {/* Inner Counter-Rotating Shield */}
                 <motion.div 
-                    className="absolute inset-4 rounded-full border border-slate-200 border-l-emerald-400 border-r-emerald-400"
+                    className="absolute inset-3 md:inset-4 rounded-full border border-slate-200 border-l-emerald-400 border-r-emerald-400"
                     animate={{ rotate: -360 }}
                     transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 />
 
                 {/* Core Glow (Soft) */}
                 <div className="absolute inset-0 bg-blue-100/50 blur-3xl rounded-full" />
-                <div className="absolute inset-20 bg-emerald-100/50 blur-2xl rounded-full" />
+                <div className="absolute inset-14 md:inset-20 bg-emerald-100/50 blur-2xl rounded-full" />
 
                 {/* The Brain */}
-                <div className="relative z-10 w-32 h-32 bg-white rounded-full border border-slate-100 flex items-center justify-center shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)]">
+                <div className="relative z-10 w-24 h-24 md:w-32 md:h-32 bg-white rounded-full border border-slate-100 flex items-center justify-center shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)]">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-slate-50" />
                     
                     {/* Hologram Effect */}
                     <div className="relative z-20">
-                        <Brain className="w-14 h-14 text-slate-700" />
+                        <Brain className="w-10 h-10 md:w-14 md:h-14 text-slate-700" />
                         <motion.div 
                             className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-400/20 to-transparent"
                             animate={{ top: ['-100%', '100%'] }}
@@ -233,12 +231,12 @@ const QuantumCore = () => {
             </div>
 
             {/* Pedestal UI */}
-            <div className="mt-12 text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm">
+            <div className="mt-8 md:mt-12 text-center">
+                <div className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white border border-slate-200 shadow-sm">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[10px] font-mono font-bold text-slate-500 tracking-[0.2em]">SYSTEM ONLINE</span>
+                    <span className="text-[9px] md:text-[10px] font-mono font-bold text-slate-500 tracking-[0.2em]">SYSTEM ONLINE</span>
                 </div>
-                <div className="mt-3 text-2xl font-black text-slate-900 tracking-tight">
+                <div className="mt-2 md:mt-3 text-xl md:text-2xl font-black text-slate-900 tracking-tight">
                     QUANTUM<span className="text-blue-600">CORE</span>
                 </div>
             </div>
@@ -252,19 +250,13 @@ const QuantumCore = () => {
 // ==========================================
 
 const ConnectionLines = () => {
-    // Exact Layout Logic:
-    // ViewBox 1200x800
-    // Center X = 600
-    // Card Inner Edge X: Left=400, Right=800
-    // Card Y Centers: 150, 400, 650
-    
+    // Only visible on Desktop (lg and up)
     const lines = [
-        // Left Side (connecting to x=400)
+        // Left Side
         { d: "M 400 150 C 500 150, 500 400, 600 400", color: "#3b82f6", delay: 0 },   // Top
         { d: "M 400 400 C 500 400, 500 400, 600 400", color: "#6366f1", delay: 1 },   // Mid
         { d: "M 400 650 C 500 650, 500 400, 600 400", color: "#10b981", delay: 2 },   // Bot
-
-        // Right Side (connecting to x=800)
+        // Right Side
         { d: "M 800 150 C 700 150, 700 400, 600 400", color: "#0ea5e9", delay: 0.5 }, // Top
         { d: "M 800 400 C 700 400, 700 400, 600 400", color: "#f43f5e", delay: 1.5 }, // Mid
         { d: "M 800 650 C 700 650, 700 400, 600 400", color: "#f59e0b", delay: 2.5 }, // Bot
@@ -280,16 +272,13 @@ const ConnectionLines = () => {
             </defs>
             {lines.map((line, i) => (
                 <g key={i}>
-                    {/* Static Line - Lighter and crisper */}
                     <path d={line.d} fill="none" stroke="#cbd5e1" strokeWidth="1.5" />
-                    
-                    {/* Moving Packet - FIXED: Removed 'motion.' prefix */}
                     <motion.circle r="4" fill={line.color} filter="url(#glow-light)">
                         <animateMotion 
                             repeatCount="indefinite"
                             dur="3s"
                             path={line.d}
-                            keyPoints={i < 3 ? "0;1" : "1;0"} // Flow towards center
+                            keyPoints={i < 3 ? "0;1" : "1;0"}
                             keyTimes="0;1"
                             calcMode="spline"
                             keySplines="0.4 0 0.2 1"
@@ -308,18 +297,18 @@ const ConnectionLines = () => {
 
 export default function SportsFeaturesSection() {
   const features = [
-    // Left Column
+    // Left Column Data
     { id: "l1", title: "Velocity Tracking", description: "Real-time sprint metrics & load analysis.", visual: <VelocityVisual />, color: "cyan", stats: "36 KM/H" },
     { id: "l2", title: "Tactical Matrix", description: "Spatial dominance heatmaps.", visual: <TacticalVisual />, color: "indigo", stats: "98% ACC" },
     { id: "l3", title: "Global Scouting", description: "AI talent identification.", visual: <ScoutingVisual />, color: "emerald", stats: "50K DB" },
-    // Right Column
+    // Right Column Data
     { id: "r1", title: "Computer Vision", description: "Auto-tagging match events.", visual: <VisionVisual />, color: "sky", stats: "10MS LAT" },
     { id: "r2", title: "Injury Guard", description: "Workload risk prediction.", visual: <HealthVisual />, color: "rose", stats: "LOW RISK" },
     { id: "r3", title: "Match Sim", description: "Predictive outcome engine.", visual: <PredictionVisual />, color: "amber", stats: "95% CONF" },
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-slate-50 flex flex-col items-center justify-center py-24 overflow-hidden font-sans selection:bg-blue-100 selection:text-blue-900">
+    <section className="relative w-full min-h-screen bg-slate-50 flex flex-col items-center justify-center py-16 md:py-24 overflow-hidden font-sans selection:bg-blue-100 selection:text-blue-900">
       
       {/* Schematic Background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
@@ -327,15 +316,15 @@ export default function SportsFeaturesSection() {
           <div className="absolute inset-0 opacity-[0.03]" 
                style={{ backgroundImage: 'linear-gradient(#64748b 1px, transparent 1px), linear-gradient(90deg, #64748b 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
           />
-          {/* Soft Gradient Spots */}
-          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-100/40 rounded-full blur-[100px]" />
+          {/* Soft Gradient Spots - Adjusted for mobile */}
+          <div className="absolute top-0 left-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-100/40 rounded-full blur-[80px] md:blur-[100px]" />
+          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-100/40 rounded-full blur-[80px] md:blur-[100px]" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-6 max-w-[1400px]">
+      <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-[1400px]">
         
-        {/* COMPACT & UNIQUE HEADER */}
-        <div className="flex flex-col items-center justify-center mb-16 text-center">
+        {/* HEADER */}
+        <div className="flex flex-col items-center justify-center mb-12 md:mb-16 text-center">
             
             <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -345,17 +334,17 @@ export default function SportsFeaturesSection() {
             >
                 {/* Tech Label Top */}
                 <div className="flex items-center justify-center gap-3 mb-3">
-                    <div className="h-px w-8 bg-slate-300" />
-                    <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-[0.25em]">
+                    <div className="h-px w-6 md:w-8 bg-slate-300" />
+                    <span className="text-[9px] md:text-[10px] font-mono font-bold text-slate-400 uppercase tracking-[0.25em]">
                         System Architecture v3.0
                     </span>
-                    <div className="h-px w-8 bg-slate-300" />
+                    <div className="h-px w-6 md:w-8 bg-slate-300" />
                 </div>
 
-                {/* Compact Main Title */}
+                {/* Main Title */}
                 <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-tight">
-                    The Nervous System of <br className="md:hidden" />
-                    <span className="relative px-3 inline-block whitespace-nowrap">
+                    The Nervous System of <br className="hidden md:block" />
+                    <span className="relative px-2 md:px-3 inline-block whitespace-nowrap mt-1 md:mt-0">
                         <span className="absolute inset-0 bg-gradient-to-r from-blue-100/50 to-emerald-100/50 -skew-x-6 rounded-sm border border-white/50 shadow-sm" />
                         <span className="relative z-10 bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
                             Modern Sports
@@ -373,51 +362,55 @@ export default function SportsFeaturesSection() {
             </motion.div>
         </div>
 
-        {/* Main Grid Layout */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-x-12 gap-y-8 items-center">
+        {/* MAIN GRID LAYOUT */}
+        {/* Mobile: 1 Col (Stack), Desktop: 3 Col (Left - Center - Right) */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-x-12 gap-y-12 items-center">
             
-            {/* SVG Connections Layer */}
+            {/* SVG Connections Layer (Desktop Only) */}
             <div className="hidden lg:block absolute inset-0 -mx-10 -my-10 z-0">
                 <ConnectionLines />
             </div>
 
-            {/* Left Column (Aligned Right) */}
-            <div className="flex flex-col gap-6 relative z-10 lg:pl-10">
+            {/* Left Column (Aligned Right on Desktop) */}
+            {/* Mobile: Order 2 (Below Core) */}
+            <div className="flex flex-col gap-5 relative z-10 lg:pl-10 order-2 lg:order-1">
                 {features.slice(0,3).map((f, i) => (
                     <FeatureCard key={i} {...f} delay={i * 0.15} side="left" />
                 ))}
             </div>
 
             {/* Center Column (Fixed Width) */}
-            <div className="relative z-10 w-[400px] h-[600px] flex items-center justify-center shrink-0">
+            {/* Mobile: Order 1 (Top) */}
+            <div className="order-1 lg:order-2 relative z-10 w-full lg:w-[400px] h-[350px] md:h-[450px] lg:h-[600px] flex items-center justify-center shrink-0">
                  <QuantumCore />
             </div>
 
-            {/* Right Column (Aligned Left) */}
-            <div className="flex flex-col gap-6 relative z-10 lg:pr-10">
+            {/* Right Column (Aligned Left on Desktop) */}
+            {/* Mobile: Order 3 */}
+            <div className="flex flex-col gap-5 relative z-10 lg:pr-10 order-3 lg:order-3">
                 {features.slice(3,6).map((f, i) => (
                     <FeatureCard key={i} {...f} delay={0.4 + (i * 0.15)} side="right" />
                 ))}
             </div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* BOTTOM CTA */}
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="mt-24 text-center"
+            className="mt-16 md:mt-24 text-center"
         >
-            <button className="group relative px-12 py-5 bg-slate-900 text-white font-bold text-lg rounded-full overflow-hidden transition-all hover:shadow-2xl hover:shadow-slate-900/20 hover:-translate-y-1">
+            <button className="group relative px-10 py-4 md:px-12 md:py-5 bg-slate-900 text-white font-bold text-base md:text-lg rounded-full overflow-hidden transition-all hover:shadow-2xl hover:shadow-slate-900/20 hover:-translate-y-1 w-full md:w-auto max-w-xs md:max-w-none mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative flex items-center gap-3">
+                <span className="relative flex items-center justify-center gap-3">
                     INITIALIZE SYSTEM <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
             </button>
-            <div className="mt-8 flex justify-center gap-8 text-xs font-bold text-slate-400 tracking-wider">
-                <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-slate-300 rounded-full" /> ENCRYPTED</span>
-                <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-slate-300 rounded-full" /> 5MS LATENCY</span>
-                <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> ONLINE</span>
+            <div className="mt-8 flex flex-col md:flex-row justify-center gap-4 md:gap-8 text-[10px] md:text-xs font-bold text-slate-400 tracking-wider">
+                <span className="flex items-center justify-center gap-2"><div className="w-1.5 h-1.5 bg-slate-300 rounded-full" /> ENCRYPTED</span>
+                <span className="flex items-center justify-center gap-2"><div className="w-1.5 h-1.5 bg-slate-300 rounded-full" /> 5MS LATENCY</span>
+                <span className="flex items-center justify-center gap-2"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" /> ONLINE</span>
             </div>
         </motion.div>
 

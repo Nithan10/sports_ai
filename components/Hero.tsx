@@ -11,13 +11,12 @@ import {
   Home,
   Activity,
   User,
-  Zap,
-  Trophy,
-  Star,
-  Battery,
   Flame,
+  Battery,
+  Trophy,
   Target,
-  Gauge
+  Gauge,
+  Star
 } from "lucide-react";
 
 const HERO_DATA = [
@@ -125,7 +124,6 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
-  // Early return if no active data
   if (!active) {
     return (
       <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden py-12 md:py-24 font-sans bg-slate-50">
@@ -137,10 +135,10 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden py-12 md:py-24 font-sans bg-slate-50 selection:bg-purple-100">
+    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden py-8 md:py-12 lg:py-24 font-sans bg-slate-50 selection:bg-purple-100">
       
       {/* --- BACKGROUND ELEMENTS --- */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none">
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
         <AnimatePresence mode="wait">
              <motion.div 
                 key={`glow-1-${active.id}`}
@@ -148,7 +146,7 @@ export default function Hero() {
                 animate={{ opacity: 0.4, scale: 1.2 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 2, ease: "easeInOut" }}
-                className={`absolute -top-[10%] -left-[10%] h-[600px] w-[600px] rounded-full bg-gradient-to-br ${active?.gradient || "from-purple-600 to-blue-600"} blur-[120px] mix-blend-multiply`}
+                className={`absolute -top-[10%] -left-[10%] h-[300px] w-[300px] md:h-[600px] md:w-[600px] rounded-full bg-gradient-to-br ${active?.gradient || "from-purple-600 to-blue-600"} blur-[80px] md:blur-[120px] mix-blend-multiply`}
              />
              <motion.div 
                 key={`glow-2-${active.id}`}
@@ -156,7 +154,7 @@ export default function Hero() {
                 animate={{ opacity: 0.3, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 2, ease: "easeInOut" }}
-                className={`absolute bottom-[-10%] right-[-5%] h-[700px] w-[700px] rounded-full bg-gradient-to-tl ${active?.gradient || "from-purple-600 to-blue-600"} blur-[140px] mix-blend-multiply`}
+                className={`absolute bottom-[-10%] right-[-5%] h-[400px] w-[400px] md:h-[700px] md:w-[700px] rounded-full bg-gradient-to-tl ${active?.gradient || "from-purple-600 to-blue-600"} blur-[100px] md:blur-[140px] mix-blend-multiply`}
              />
         </AnimatePresence>
         <div className="absolute inset-0 flex items-center justify-center text-slate-900/5"> 
@@ -164,17 +162,17 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="z-10 grid w-full max-w-[1400px] grid-cols-1 gap-y-12 px-6 lg:grid-cols-3 lg:gap-x-8 items-center">
+      <div className="z-10 grid w-full max-w-[1400px] grid-cols-1 lg:grid-cols-3 gap-y-10 lg:gap-y-0 lg:gap-x-8 items-center px-4 md:px-6">
         
-        {/* COL 1: Typography */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 order-2 lg:order-1">
+        {/* COL 1: Typography (Mobile Order: 2) */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 order-2 lg:order-1">
             <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/60 backdrop-blur-md px-3 py-1 text-xs font-medium text-slate-600 shadow-sm">
                     <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
                     <span>Official Partner</span>
                 </div>
                 
-                <h1 className="text-5xl lg:text-7xl font-black italic tracking-tighter text-slate-900 uppercase leading-[0.9]">
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-black italic tracking-tighter text-slate-900 uppercase leading-[0.9]">
                     sports <br/>
                     <AnimatePresence mode="wait">
                       <motion.span
@@ -189,23 +187,23 @@ export default function Hero() {
                     </AnimatePresence>
                 </h1>
 
-                <p className="max-w-[400px] text-slate-500 text-sm lg:text-base leading-relaxed font-medium">
+                <p className="max-w-[400px] text-slate-500 text-sm lg:text-base leading-relaxed font-medium mx-auto lg:mx-0">
                     Track performance and dominate the pitch with real-time analytics for <span className="text-slate-900 font-bold">{active?.fullName || "Player"}</span>.
                 </p>
             </div>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                <InteractiveHoverButton className={`w-40 bg-slate-900 text-white border-none shadow-xl ${active?.shadowColor || "shadow-purple-500/25"} transition-shadow duration-500 hover:bg-slate-800`}>
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 w-full">
+                <InteractiveHoverButton className={`w-full max-w-[200px] bg-slate-900 text-white border-none shadow-xl ${active?.shadowColor || "shadow-purple-500/25"} transition-shadow duration-500 hover:bg-slate-800`}>
                     Get Started
                 </InteractiveHoverButton>
             </div>
         </div>
 
-        {/* COL 2: Player Image & LINE ANIMATION */}
-        <div className="relative flex justify-center items-center order-1 lg:order-2 h-[450px] md:h-[600px]">
+        {/* COL 2: Player Image (Mobile Order: 1) */}
+        <div className="relative flex justify-center items-center order-1 lg:order-2 h-[350px] md:h-[500px] lg:h-[600px] w-full">
           <AnimatePresence mode="wait">
             
-            {/* --- TECH LINE ANIMATION (Behind Image) --- */}
+            {/* --- TECH LINE ANIMATION --- */}
             <motion.div 
               key={`lines-${active.id}`}
               className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
@@ -213,8 +211,8 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <svg className="w-[140%] h-[140%] absolute opacity-40" viewBox="0 0 400 400">
-                {/* 1. Outer Rotating Dashed Ring (Now with Fading Pulse) */}
+              <svg className="w-[120%] h-[120%] md:w-[140%] md:h-[140%] absolute opacity-40" viewBox="0 0 400 400">
+                {/* 1. Outer Ring */}
                 <motion.circle 
                   cx="200" cy="200" r="180" 
                   fill="none" 
@@ -222,17 +220,14 @@ export default function Hero() {
                   strokeWidth="1" 
                   strokeDasharray="10 10"
                   initial={{ rotate: 0, scale: 0.9, opacity: 0 }}
-                  // Animation: Rotate 360 + Opacity Pulse [0.2 -> 0.6 -> 0.2]
                   animate={{ rotate: 360, scale: 1, opacity: [0.2, 0.6, 0.2] }}
                   transition={{ 
                     rotate: { duration: 10, ease: "linear", repeat: Infinity },
                     scale: { duration: 0.5 },
-                    // Pulse Transition
                     opacity: { duration: 3, ease: "easeInOut", repeat: Infinity } 
                   }}
                 />
-
-                {/* 2. Drawing Inner Ring (Now with Fading Pulse) */}
+                {/* 2. Inner Ring */}
                 <motion.circle 
                   cx="200" cy="200" r="140" 
                   fill="none" 
@@ -240,16 +235,13 @@ export default function Hero() {
                   strokeWidth="2" 
                   strokeLinecap="round"
                   initial={{ pathLength: 0, opacity: 0, rotate: -90 }}
-                  // Animation: Draw Path + Opacity Pulse [0.4 -> 1 -> 0.4]
                   animate={{ pathLength: 1, opacity: [0.4, 1, 0.4], rotate: -90 }}
                   transition={{ 
                     pathLength: { duration: 1.5, ease: "easeInOut" },
-                    // Pulse Transition
                     opacity: { duration: 3, ease: "easeInOut", repeat: Infinity, delay: 0.5 } 
                   }}
                 />
-
-                {/* 3. Pulsing Core */}
+                {/* 3. Core */}
                 <motion.circle 
                   cx="200" cy="200" r="120" 
                   fill="none" 
@@ -259,68 +251,56 @@ export default function Hero() {
                   animate={{ scale: [0.8, 1, 0.8], opacity: [0.2, 0.5, 0.2] }}
                   transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
                 />
-                
-                {/* 4. Crosshairs (Fading In/Out slightly) */}
+                {/* 4. Crosshairs */}
                 <motion.line 
-                   x1="200" y1="20" x2="200" y2="40" 
-                   stroke={active.color} strokeWidth="2"
-                   initial={{ y: -20, opacity: 0 }}
-                   animate={{ y: 0, opacity: [0.5, 1, 0.5] }}
-                   transition={{ y: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
+                    x1="200" y1="20" x2="200" y2="40" 
+                    stroke={active.color} strokeWidth="2"
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: [0.5, 1, 0.5] }}
+                    transition={{ y: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
                 />
                  <motion.line 
-                   x1="200" y1="360" x2="200" y2="380" 
-                   stroke={active.color} strokeWidth="2"
-                   initial={{ y: 20, opacity: 0 }}
-                   animate={{ y: 0, opacity: [0.5, 1, 0.5] }}
-                   transition={{ y: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
+                    x1="200" y1="360" x2="200" y2="380" 
+                    stroke={active.color} strokeWidth="2"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: [0.5, 1, 0.5] }}
+                    transition={{ y: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
                 />
                 <motion.line 
-                   x1="20" y1="200" x2="40" y2="200" 
-                   stroke={active.color} strokeWidth="2"
-                   initial={{ x: -20, opacity: 0 }}
-                   animate={{ x: 0, opacity: [0.5, 1, 0.5] }}
-                   transition={{ x: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
+                    x1="20" y1="200" x2="40" y2="200" 
+                    stroke={active.color} strokeWidth="2"
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: [0.5, 1, 0.5] }}
+                    transition={{ x: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
                 />
                 <motion.line 
-                   x1="360" y1="200" x2="380" y2="200" 
-                   stroke={active.color} strokeWidth="2"
-                   initial={{ x: 20, opacity: 0 }}
-                   animate={{ x: 0, opacity: [0.5, 1, 0.5] }}
-                   transition={{ x: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
+                    x1="360" y1="200" x2="380" y2="200" 
+                    stroke={active.color} strokeWidth="2"
+                    initial={{ x: 20, opacity: 0 }}
+                    animate={{ x: 0, opacity: [0.5, 1, 0.5] }}
+                    transition={{ x: { duration: 0.5 }, opacity: { duration: 3, repeat: Infinity } }}
                 />
               </svg>
             </motion.div>
 
-            {/* --- PLAYER IMAGE (Updated with Floating Animation) --- */}
+            {/* --- PLAYER IMAGE --- */}
             <motion.img 
               key={`img-${active.id}`}
               src={active?.image || "/placeholder.png"}
               alt={active?.fullName || "Player"}
-              className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
-              
-              // Initial Entry State
+              className="relative z-10 w-auto h-full max-h-[350px] md:max-h-[500px] lg:max-h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
               initial={{ opacity: 0, x: 50, scale: 0.95 }}
-              
-              // Combined Animation: Slide to center + Continuous Floating
               animate={{ 
                 opacity: 1, 
                 x: 0, 
                 scale: 1,
-                y: [0, -20, 0] // Vertical Floating Keyframes
+                y: [0, -15, 0] 
               }}
-              
-              // Exit State
               exit={{ opacity: 0, x: -50, scale: 0.95, transition: { duration: 0.3 } }}
-              
-              // Specific Transitions
               transition={{ 
-                // Entrance Transitions
                 opacity: { duration: 0.5, ease: "easeOut" },
                 x: { duration: 0.5, ease: "easeOut" },
                 scale: { duration: 0.5, ease: "easeOut" },
-                
-                // Floating Loop Transition (Specific to 'y')
                 y: { 
                   duration: 4, 
                   repeat: Infinity, 
@@ -332,9 +312,9 @@ export default function Hero() {
           </AnimatePresence>
         </div>
 
-        {/* COL 3: Compact iPhone Interface */}
-        <div className="flex justify-center lg:justify-end order-3">
-          <Iphone className="h-[550px] w-[300px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] bg-transparent">
+        {/* COL 3: iPhone Interface (Mobile Order: 3) */}
+        <div className="flex justify-center lg:justify-end order-3 w-full">
+          <Iphone className="h-[500px] w-[280px] md:h-[550px] md:w-[300px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] bg-transparent scale-95 md:scale-100 origin-top">
             <AnimatePresence mode="wait">
               <motion.div 
                 key={active.id}
@@ -345,7 +325,7 @@ export default function Hero() {
                 className="relative flex flex-col bg-slate-50 text-zinc-900 h-full w-full overflow-hidden"
               >
                 
-                {/* --- APP HEADER - Compact --- */}
+                {/* --- APP HEADER --- */}
                 <div className="flex items-center justify-between px-5 pb-3 pt-12 sticky top-0 bg-slate-50/90 backdrop-blur-xl z-20 border-b border-slate-100/50">
                   <button className="h-7 w-7 flex items-center justify-center rounded-full bg-white border border-slate-200 hover:bg-slate-50 transition-colors shadow-sm">
                     <ChevronLeft className="h-3.5 w-3.5 text-slate-600" />
@@ -369,10 +349,10 @@ export default function Hero() {
                   </button>
                 </div>
 
-                {/* --- SCROLLABLE CONTENT - Compact --- */}
+                {/* --- SCROLLABLE CONTENT --- */}
                 <div className="px-4 space-y-3 pb-20 pt-2 overflow-y-auto h-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                   
-                  {/* Energy Level Bar Graph - Replaces Rating */}
+                  {/* Energy Level Bar Graph */}
                   <div className="rounded-[20px] bg-white p-4 border border-slate-100 shadow-[0_4px_8px_-2px_rgba(0,0,0,0.03)]">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
@@ -392,7 +372,6 @@ export default function Hero() {
                       </AnimatePresence>
                     </div>
                     
-                    {/* Main Energy Bar */}
                     <div className="relative h-3 w-full bg-slate-100 rounded-full overflow-hidden mb-2">
                       <AnimatePresence mode="wait">
                         <motion.div 
@@ -405,7 +384,6 @@ export default function Hero() {
                       </AnimatePresence>
                     </div>
                     
-                    {/* Energy Indicators */}
                     <div className="flex justify-between text-[10px] text-slate-400 font-medium">
                       <span>Low</span>
                       <span>Medium</span>
@@ -475,7 +453,7 @@ export default function Hero() {
                     </div>
                   </div>
 
-                  {/* Quick Stats Grid - 3 Columns */}
+                  {/* Quick Stats Grid */}
                   <div className="grid grid-cols-3 gap-2">
                     <div className="rounded-[16px] bg-white p-3 border border-slate-100 shadow-[0_2px_6px_-2px_rgba(0,0,0,0.03)] flex flex-col items-center justify-center">
                       <Battery className="h-4 w-4 text-emerald-500 mb-1" />
@@ -526,7 +504,7 @@ export default function Hero() {
                     </div>
                   </div>
 
-                  {/* Match Card - Compact */}
+                  {/* Match Card */}
                   <div className="rounded-[20px] bg-white p-3 border border-slate-100 shadow-[0_4px_8px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
                     <AnimatePresence mode="wait">
                       <motion.div 
@@ -582,7 +560,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* --- BOTTOM FLOATING NAV - Compact --- */}
+                {/* --- BOTTOM FLOATING NAV --- */}
                 <div className="absolute bottom-4 left-4 right-4 h-[48px] rounded-[18px] bg-white border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.12)] flex items-center justify-around z-30">
                   <button className="p-2 rounded-full text-purple-600 bg-purple-50">
                     <Home className="h-4 w-4" strokeWidth={2.5} />

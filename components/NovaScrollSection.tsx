@@ -6,7 +6,7 @@ import {
   Activity, Zap, Trophy, Target, ChevronRight, PlayCircle, Wifi, Battery
 } from "lucide-react";
 
-// --- 1. Screen Components (Sports Analytics Themed) ---
+// --- 1. Screen Components (Compact Versions) ---
 
 // SCREEN 1: Match Data Import
 function ScreenMatchData() {
@@ -253,7 +253,7 @@ function ScreenAIStrategy() {
   );
 }
 
-// --- 2. Main Component ---
+// --- 2. Main Component (Responsive Layout) ---
 export default function NovaScrollSection() {
   const [activeCard, setActiveCard] = useState(0);
 
@@ -282,55 +282,29 @@ export default function NovaScrollSection() {
   ];
 
   return (
-    <section className="bg-white font-sans w-full py-12">
-      <div className="relative mx-auto max-w-[1200px] px-6 md:px-10">
+    <section className="bg-white font-sans w-full py-12 lg:py-24">
+      <div className="relative mx-auto max-w-[1400px] px-4 md:px-10">
         
-        <div className="flex items-start">
+        <div className="flex flex-col lg:flex-row items-start">
           
-          {/* --- Left Column: Scrolling Text --- */}
-          <div className="w-full md:w-1/2 py-[15vh] pb-[40vh]">
-            {STEPS.map((step, index) => (
-              <div 
-                key={step.id} 
-                className="flex h-[70vh] flex-col justify-center p-4"
-              >
-                <motion.div
-                  initial={{ opacity: 0.2, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ amount: 0.5, margin: "-100px 0px -100px 0px" }} 
-                  transition={{ duration: 0.5 }}
-                  onViewportEnter={() => setActiveCard(index)} 
-                >
-                  <span className="mb-3 block text-base font-semibold text-blue-600 uppercase tracking-wide">
-                    {step.stepLabel}
-                  </span>
-                  <h2 className="mb-5 text-3xl font-bold leading-tight text-slate-900 md:text-4xl lg:text-5xl">
-                    {step.title}
-                  </h2>
-                  <p className="max-w-md text-base leading-relaxed text-slate-500">
-                    {step.description}
-                  </p>
-                </motion.div>
-              </div>
-            ))}
-          </div>
-
-          {/* --- Right Column: Compact iPhone Mockup --- */}
-          <div className="hidden w-1/2 sticky top-24 h-[calc(100vh-6rem)] flex items-center justify-center md:flex">
+          {/* --- Right Column: Phone Mockup (Responsive Order & Sticking) --- */}
+          {/* Mobile: Order 1 (Top), Sticky at top-20, Scaled down */}
+          {/* Desktop: Order 2 (Right), Sticky at top-24, Full Scale */}
+          <div className="flex w-full lg:w-1/2 sticky top-20 lg:top-24 h-[50vh] lg:h-[calc(100vh-6rem)] items-center justify-center order-1 lg:order-2 z-0 pointer-events-none">
             
-            {/* COMPACT Phone Container - Reduced Height & Width */}
-            <div className="relative h-[600px] w-[300px] scale-[0.85] lg:scale-100 origin-center transition-transform duration-300">
+            {/* Phone Container */}
+            <div className="relative h-[600px] w-[300px] scale-[0.55] sm:scale-[0.65] md:scale-[0.8] lg:scale-100 origin-center transition-transform duration-300">
               
-              {/* --- 1. Titanium Frame Body --- */}
+              {/* --- 1. Titanium Frame --- */}
               <div className="absolute inset-0 z-10 rounded-[45px] border-[1px] border-slate-700/40 bg-[#1c1c1e] shadow-2xl">
                  <div className="absolute inset-0 rounded-[45px] bg-[#222] opacity-80 mix-blend-multiply" />
                  <div className="absolute inset-0 rounded-[45px] ring-1 ring-inset ring-slate-500/20" />
               </div>
 
-              {/* --- 2. Screen Bezel (Black Border) --- */}
+              {/* --- 2. Screen Bezel --- */}
               <div className="absolute inset-[3px] z-20 rounded-[42px] bg-black border-[5px] border-[#121212]" />
 
-              {/* --- 3. Buttons (Adjusted Positions for Compact Height) --- */}
+              {/* --- 3. Buttons --- */}
               <div className="absolute top-24 -left-[5px] h-6 w-[3px] rounded-l-md bg-[#2d2d30] shadow-sm z-0" />
               <div className="absolute top-36 -left-[5px] h-10 w-[3px] rounded-l-md bg-[#2d2d30] shadow-sm z-0" />
               <div className="absolute top-52 -left-[5px] h-10 w-[3px] rounded-l-md bg-[#2d2d30] shadow-sm z-0" />
@@ -343,8 +317,6 @@ export default function NovaScrollSection() {
 
               {/* --- 5. Screen Content --- */}
               <div className="absolute inset-[8px] z-30 overflow-hidden rounded-[36px] bg-slate-50">
-                
-                {/* Status Bar */}
                 <div className="absolute top-0 left-0 right-0 z-50 flex justify-between px-6 pt-3.5 text-slate-900 font-semibold text-[11px]">
                    <span>9:41</span>
                    <div className="flex gap-1.5 items-center">
@@ -354,7 +326,6 @@ export default function NovaScrollSection() {
                    </div>
                 </div>
 
-                {/* Main Content Animation Area */}
                 <div className="h-full w-full pt-12 pb-6 px-4 overflow-hidden flex flex-col">
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -370,10 +341,9 @@ export default function NovaScrollSection() {
                   </AnimatePresence>
                 </div>
               </div>
-
             </div>
 
-            {/* Background Glow Effect */}
+            {/* Background Glow */}
             <AnimatePresence mode="wait">
                  <motion.div 
                     key={activeCard}
@@ -388,6 +358,38 @@ export default function NovaScrollSection() {
                     }`} 
                  />
             </AnimatePresence>
+          </div>
+
+          {/* --- Left Column: Scrolling Text --- */}
+          {/* Mobile: Order 2. Scrolls 'over' the sticky phone backdrop using z-index and padding. */}
+          <div className="w-full lg:w-1/2 py-[5vh] lg:py-[15vh] pb-[20vh] lg:pb-[40vh] relative z-10 order-2 lg:order-1">
+            {STEPS.map((step, index) => (
+              <div 
+                key={step.id} 
+                className="flex min-h-[60vh] lg:min-h-[80vh] flex-col justify-center p-2 lg:p-4"
+              >
+                <motion.div
+                  initial={{ opacity: 0.2, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ amount: 0.5, margin: "-100px 0px -100px 0px" }} 
+                  transition={{ duration: 0.5 }}
+                  onViewportEnter={() => setActiveCard(index)} 
+                  // Mobile: Add glassmorphism card styling to make text readable over the phone
+                  // Desktop: Remove background styling
+                  className="bg-white/90 backdrop-blur-xl border border-slate-200/50 p-6 rounded-3xl shadow-xl lg:bg-transparent lg:backdrop-blur-none lg:border-none lg:shadow-none lg:p-0"
+                >
+                  <span className="mb-3 block text-sm lg:text-lg font-medium text-blue-600 uppercase tracking-wide">
+                    {step.stepLabel}
+                  </span>
+                  <h2 className="mb-4 lg:mb-6 text-3xl lg:text-5xl font-bold leading-tight text-slate-900">
+                    {step.title}
+                  </h2>
+                  <p className="text-base lg:text-lg leading-relaxed text-slate-600 lg:text-slate-500">
+                    {step.description}
+                  </p>
+                </motion.div>
+              </div>
+            ))}
           </div>
 
         </div>

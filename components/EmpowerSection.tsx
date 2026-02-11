@@ -8,21 +8,21 @@ import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-
 // "Pro" Layout: varying sizes, angles, AND distances (radius) for a 3D depth effect.
 const USERS = [
   // 1. Top Left (Main Focus) - Large, Close
-  { id: 1, src: "/pos1.jpg", alt: "User 1", angle: 220, initialRotation: 0, size: 290, distance: 550 },
+  { id: 1, src: "/pos1.jpg", alt: "Star Striker", angle: 220, initialRotation: 0, size: 290, distance: 550 },
   // 2. Top Right - Medium, Far
-  { id: 2, src: "/pos2.jpg", alt: "User 2", angle: 310, initialRotation: 2, size: 190, distance: 500 },
+  { id: 2, src: "/pos2.jpg", alt: "Head Coach", angle: 310, initialRotation: 2, size: 190, distance: 500 },
   // 3. Right - Medium, Close
-  { id: 3, src: "/pos3.jpeg", alt: "User 3", angle: 10, initialRotation: -2, size: 240, distance: 600 },
+  { id: 3, src: "/pos3.jpeg", alt: "Team Captain", angle: 10, initialRotation: -2, size: 240, distance: 600 },
   // 4. Bottom Right - Small, Far
-  { id: 4, src: "/pos4.jpeg", alt: "User 4", angle: 50, initialRotation: 1, size: 180, distance: 450 },
+  { id: 4, src: "/pos4.jpeg", alt: "Academy Prospect", angle: 50, initialRotation: 1, size: 180, distance: 450 },
   // 5. Bottom Left - Large, Close
-  { id: 5, src: "/pos5.jpeg", alt: "User 5", angle: 140, initialRotation: -1, size: 260, distance: 580 },
+  { id: 5, src: "/pos5.jpeg", alt: "Goalkeeper", angle: 140, initialRotation: -1, size: 260, distance: 580 },
   // 6. Left - Smallest, Very Far
-  { id: 6, src: "/pos6.jpeg", alt: "User 6", angle: 185, initialRotation: 3, size: 160, distance: 480 },
+  { id: 6, src: "/pos6.jpeg", alt: "Data Analyst", angle: 185, initialRotation: 3, size: 160, distance: 480 },
   // 7. NEW: Top Center-Right - Small, Floating High
-  { id: 7, src: "/pos1.jpg", alt: "User 7", angle: 280, initialRotation: -3, size: 150, distance: 650 },
+  { id: 7, src: "/pos1.jpg", alt: "Scout", angle: 280, initialRotation: -3, size: 150, distance: 650 },
   // 8. NEW: Bottom Center - Medium, Low
-  { id: 8, src: "/pos2.jpg", alt: "User 8", angle: 100, initialRotation: 2, size: 210, distance: 520 },
+  { id: 8, src: "/pos2.jpg", alt: "Physio", angle: 100, initialRotation: 2, size: 210, distance: 520 },
 ];
 
 export default function EmpowerSection() {
@@ -71,11 +71,11 @@ export default function EmpowerSection() {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-bold text-[#1a1a1a] tracking-tight leading-[1.1] mb-6">
-                    Empowering <br /> Every User
+                    Empowering <br /> Every Match
                 </h1>
                 
                 <p className="text-gray-500 text-xl md:text-2xl max-w-xl mx-auto leading-relaxed">
-                    From entrepreneurs to educators, Geni AI provides tools to simplify work.
+                    From grassroots talents to elite managers, Football Hub provides the data to win.
                 </p>
             </motion.div>
         </div>

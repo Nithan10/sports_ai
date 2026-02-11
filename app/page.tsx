@@ -5,15 +5,18 @@ import { AnimatePresence, motion } from "framer-motion";
 
 // --- Components ---
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Preloader from "@/components/Preloader";
 import WhatWeDo from "@/components/WhatWeDo"; 
 
+// --- Renamed Component Import ---
+import CreativePatternSection from "@/components/CreativePatternSection"; // Changed from NovaScrollSection
+import NovaScrollSection from "@/components/NovaScrollSection";
 // UI Components
-import FeaturesSection from "@/components/FeaturesSection";
 import EmpowerSection from "@/components/EmpowerSection";
 import BentoGrid from "@/components/BentoGrid"; 
-import BoostSection from "@/components/BoostSection"; // <--- Imported New Section
+import BoostSection from "@/components/BoostSection"; 
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,8 +51,10 @@ export default function Home() {
             {/* 2. What We Do */}
             <WhatWeDo />
             
-            {/* 3. Features (Phone Scroll) */}
-            <FeaturesSection />
+            {/* 3. Features (Sticky Phone Scroll Animation) */}
+            {/* Replaced the old FeaturesSection with the new CreativePatternSection */}
+            <CreativePatternSection />
+            <NovaScrollSection /> {/* This is the renamed component, previously NovaScrollSection, now imported as CreativePatternSection */}
 
             {/* 4. Empower (Orbiting Users) */}
             <EmpowerSection />
@@ -57,8 +62,11 @@ export default function Home() {
             {/* 5. Bento Grid */}
             <BentoGrid />
 
-            {/* 6. NEW: Boost Section (Floating Icons) */}
+            {/* 6. Boost Section (Floating Icons) */}
             <BoostSection />
+
+            {/* 7. Footer */}
+            <Footer />
             
           </motion.div>
         )}

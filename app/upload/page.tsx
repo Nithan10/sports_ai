@@ -47,8 +47,43 @@ const PROCESSING_STEPS = [
   "FINALIZING INSIGHTS..."
 ];
 
+// Player Types
+interface Player {
+  name: string;
+  shortName: string;
+  firstName: string;
+  lastName: string;
+  image: string;
+  imageUrl: string;
+  country: string;
+  flag: string;
+  color: string;
+  colorHex: string;
+  secondaryColor: string;
+  bgGradient: string;
+  lightBg: string;
+  borderColor: string;
+  textColor: string;
+  darkText: string;
+  achievements: string[];
+  ranking: number;
+  age: number;
+  height: string;
+  weight: string;
+  plays: string;
+}
+
+interface PlayerMetrics {
+  aggression: number;
+  consistency: number;
+  power: number;
+  agility: number;
+  endurance: number;
+  technique: number;
+}
+
 // Player Data for Comparison with Image Paths
-const PLAYER1 = {
+const PLAYER1: Player = {
   name: "NOVAK DJOKOVIC",
   shortName: "DJOKOVIC",
   firstName: "Novak",
@@ -73,7 +108,7 @@ const PLAYER1 = {
   plays: "Right-handed"
 };
 
-const PLAYER2 = {
+const PLAYER2: Player = {
   name: "CARLOS ALCARAZ",
   shortName: "ALCARAZ",
   firstName: "Carlos",
@@ -826,7 +861,7 @@ function DashboardView() {
 // COMPARISON COMPONENTS
 // ============================================================================
 
-function PlayerStyleCard({ player, metrics }: { player: any, metrics: any }) {
+function PlayerStyleCard({ player, metrics }: { player: Player; metrics: PlayerMetrics }) {
   return (
     <div className={`bg-white rounded-3xl p-6 border ${player.borderColor} shadow-sm hover:shadow-md transition-all`}>
       <div className="flex items-center gap-3 mb-6">
@@ -848,7 +883,7 @@ function PlayerStyleCard({ player, metrics }: { player: any, metrics: any }) {
       </div>
       
       <div className="space-y-4">
-        {Object.entries(metrics).map(([key, value]) => (
+        {(Object.entries(metrics) as [keyof PlayerMetrics, number][]).map(([key, value]) => (
           <div key={key}>
             <div className="flex justify-between text-xs mb-1">
               <span className="font-bold text-slate-500 uppercase">{key}</span>
@@ -935,7 +970,7 @@ function EnergyMeterCard({ player, energy, peakSpeed, distance, sprints, recover
   );
 }
 
-function StyleBar({ label, value, color }: { label: string, value: number, color: string }) {
+function StyleBar({ label, value, color }: { label: string; value: number; color: string }) {
   const colorClass = color === 'indigo' ? 'bg-indigo-600' : 'bg-amber-500';
   
   return (
